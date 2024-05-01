@@ -26,4 +26,11 @@ public class Event extends BaseModel{
     private Organizer eventOrganizer;
     @OneToMany
     private List<Participant> participants;
+
+    public void setName(Object name) {
+    }
+
+    public Object getName() {
+        return null;
+    }
 }

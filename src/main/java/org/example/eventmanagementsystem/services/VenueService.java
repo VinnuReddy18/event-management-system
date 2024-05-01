@@ -25,13 +25,7 @@ public class VenueService {
             throw new VenueNotFoundException("Venue Not Found");
         }
         Venue venue=optionalVenue.get();
-        VenueDto venueDto=new VenueDto();
-        venueDto.setVenueAvailability(venue.getVenueAvailability());
-        venueDto.setVenueLocation(venue.getVenueLocation());
-        venueDto.setVenueName(venue.getVenueName());
-        venueDto.setCapacity(venueDto.getCapacity());
-        venueDto.setVenueLocation(venue.getVenueLocation());
-        return venueDto;
+        return convertToVenueDto(venue);
     }
     public List<VenueDto> getAllVenues() {
         List<Venue> venues= venueRepo.findAll();
@@ -89,14 +83,18 @@ public class VenueService {
         if(optionalVenue.isEmpty()){
             throw new VenueNotFoundException("Venue Not Found");
         }
-        Venue venue=optionalVenue.get();
-        VenueDto venueDto=new VenueDto();
+        Venue venue = optionalVenue.get();
+        venueRepo.delete(venue);
+        return convertToVenueDto(venue);
+
+    }
+    public VenueDto convertToVenueDto(Venue venue){
+        VenueDto venueDto = new VenueDto();
         venueDto.setVenueAvailability(venue.getVenueAvailability());
         venueDto.setVenueLocation(venue.getVenueLocation());
         venueDto.setVenueName(venue.getVenueName());
         venueDto.setCapacity(venue.getCapacity());
         venueDto.setVenueLocation(venue.getVenueLocation());
-        venueRepo.deleteById(id);
         return venueDto;
     }
 }
