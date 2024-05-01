@@ -10,7 +10,6 @@ import java.util.List;
 public class ParticipantDto {
     private String name;
     private String email;
-
     private List<Event> events;
 
 

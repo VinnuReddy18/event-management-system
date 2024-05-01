@@ -23,6 +23,4 @@ public class Participant extends BaseModel{
     private String email;
     @OneToMany
     private List<Event> event;
-//    @OneToMany
-//    private HashMap<Event, ERegistrationStatus> events;
 }

@@ -97,39 +97,4 @@ public class EventService {
         eventDto.setEventOrganizer(event.getEventOrganizer());
         return eventDto;
     }
-    public ERegistrationStatus addParticipant(Participant participant, Long id) {
-        Optional<Event> optionalEvent = eventRepo.findById(id);
-        if (optionalEvent.isPresent()) {
-            Event event = optionalEvent.get();
-            List<Participant> participants = event.getParticipants();
-            if (participants.contains(participant)) {
-                return ERegistrationStatus.ALREADY_REGISTERED;
-            } else {
-                participants.add(participant);
-                event.setParticipants(participants);
-                eventRepo.save(event);
-                return ERegistrationStatus.SUCCESS;
-            }
-        } else {
-            throw new EventNotFoundException("Event not found with id: " + id);
-        }
-    }
-
-    public ERegistrationStatus removeParticipant(Participant participant, Long id) {
-        Optional<Event> optionalEvent = eventRepo.findById(id);
-        if (optionalEvent.isPresent()) {
-            Event event = optionalEvent.get();
-            List<Participant> participants = event.getParticipants();
-            if (participants.contains(participant)) {
-                participants.remove(participant);
-                event.setParticipants(participants);
-                eventRepo.save(event);
-                return ERegistrationStatus.SUCCESS;
-            } else {
-                return ERegistrationStatus.NOT_REGISTERED;
-            }
-        } else {
-            throw new EventNotFoundException("Event not found with id: " + id);
-        }
-    }
 }

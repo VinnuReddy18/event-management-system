@@ -3,6 +3,7 @@ package org.example.eventmanagementsystem.controllers;
 import org.aspectj.weaver.ast.Or;
 import org.example.eventmanagementsystem.dtos.EventDto;
 import org.example.eventmanagementsystem.dtos.OrganizerDto;
+import org.example.eventmanagementsystem.repositories.EventRepo;
 import org.example.eventmanagementsystem.services.EventService;
 import org.example.eventmanagementsystem.services.OrganizerService;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,10 @@ public class OrganizerController {
     @PatchMapping("/{id}")
     public OrganizerDto updateOrganizerById(@PathVariable("id") Long id , @RequestBody OrganizerDto organizerDto){
         return organizerService.updateOrganizerById(id,organizerDto);
+    }
+    public EventDto updateEventByOrganizer(@PathVariable("id") Long id ,@RequestBody EventDto eventDto){
+        return eventService.updateEventByOrganizer(id,eventDto);
+
     }
     
 
