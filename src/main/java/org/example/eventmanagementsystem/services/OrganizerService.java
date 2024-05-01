@@ -72,8 +72,4 @@ public class OrganizerService {
         organizerRepo.save(organizer);
         return organizerDto;
     }
-
-    public OrganizerDto createOrganizer(OrganizerDto organizerDto) {
-        return null;
-    }
 }

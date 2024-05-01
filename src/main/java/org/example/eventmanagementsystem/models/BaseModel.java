@@ -6,5 +6,4 @@ public class BaseModel {
     Long id;
     Date createdAt;
     Date updatedAt;
-
 }
