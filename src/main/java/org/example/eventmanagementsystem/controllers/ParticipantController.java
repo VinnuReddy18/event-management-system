@@ -38,12 +38,5 @@ public class ParticipantController {
     public List<Event> getAllEvents(){
         return eventService.getAllEvents();
     }
-//    @PatchMapping("/{id}")
-//    public ERegistrationStatus registerForEvent(@PathVariable("id") Long id, Participant participant ){
-//        return eventService.addParticipant(participant, id);
-//    }
-//    @PatchMapping("/{id}")
-//    public ERegistrationStatus unregisterForEvent(@PathVariable("id") Long id, Participant participant ){
-//        return eventService.removeParticipant(participant, id);
-//    }
+
 }
