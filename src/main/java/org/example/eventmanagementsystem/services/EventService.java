@@ -15,143 +15,121 @@ import static org.example.eventmanagementsystem.models.enums.EVenueAvailability.
 
 @Service
 public class EventService {
+    private final EventRepo eventRepo;
+
+    public EventService(EventRepo eventRepo) {
+        this.eventRepo = eventRepo;
+    }
+
     public EventDto createEvent(EventDto event) {
+        if(event == null){
+            throw new RuntimeException("Event cannot be null");
+        }
+        Event savedEvent = new Event();
+        savedEvent.setName(event.getEventName());
+        savedEvent.setDate(event.getDate());
+        savedEvent.setEventVenue(event.getEventVenue());
+        savedEvent.setEventDescription(event.getEventDescription());
+        return convertToDto(eventRepo.save(savedEvent));
 
-        Event Event = new Event();
-        event.setName(EventDto.getName());
-        event.setDate(EventDto.getDate());
-        event.setEventVenue(EventDto.getEventVenue());
-        event.setEventDescription(EventDto.getEventDescription());
-
-
-        Event savedEvent = EventRepo.save(Event);
-
-//        EventDto savedEventDto = new EventDto();
-//        savedEventDto.setId(savedEvent.getId());
-//        savedEventDto.setName(savedEvent.getName());
-//        savedEventDto.Date(savedEvent.getDate());
-
-        return event;
     }
 
     public EventDto updateEvent(Long id, EventDto event) {
-        Optional<Event> optionalEvent = EventRepo.findById(id);
+        Optional<Event> optionalEvent = eventRepo.findById(id);
         if (optionalEvent.isPresent()) {
-            Event event = optionalEvent.get();
+            Event eventUpdated = optionalEvent.get();
+            if(event.getDate()!=null)eventUpdated.setDate(event.getDate());
+            if(event.getEventName()!=null)eventUpdated.setName(event.getEventName());
+            if(event.getEventVenue()!=null)eventUpdated.setEventVenue(event.getEventVenue());
+            if(event.getEventDescription()!=null)eventUpdated.setEventDescription(event.getEventDescription());
+            if(event.getEventOrganizer()!=null)eventUpdated.setEventOrganizer(event.getEventOrganizer());
 
-            event.setName(EventDto.getName());
-            event.setDate(EventDto.getDate());
-            event.setEventVenue(EventDto.getEventVenue());
-            event.setEventDescription(EventDto.getEventDescription());
-
-            Event updatedEvent = EventRepo.save(event);
-
-            EventDto updatedEventDto = new EventDto();
-            updatedEventDto.setId(updatedEvent.getId());
-            updatedEventDto.setName(updatedEvent.getName());
-            updatedEventDto.setDate(updatedEvent.getDate());
-            updatedEventDto.setEventVenue(updatedEvent.getEventVenue());
-            updatedEventDto.setEventDescription(updatedEvent.getEventDescription());
-
-            return updatedEventDto;
+            return convertToDto(eventRepo.save(eventUpdated));
         } else {
             throw new RuntimeException("Event not found with id: " + id);
         }
     }
 
     public EventDto getEventById(Long id) {
-Optional<Event> optionalEvent = EventRepo.findById(id);
+        Optional<Event> optionalEvent = eventRepo.findById(id);
         if (optionalEvent.isPresent()) {
-            Event event = optionalEvent.get();
-
-            EventDto eventDto = new EventDto();
-            eventDto.setId(event.getId());
-            eventDto.setName(event.getName());
-            eventDto.setDate(event.getDate());
-            eventDto.setEventVenue(event.getEventVenue());
-            eventDto.setEventDescription(event.getEventDescription());
-
-            return eventDto;
+            return convertToDto(optionalEvent.get());
         } else {
-            throw new RuntimeException("Event not found with id: " + id);
+            throw new EventNotFoundException("Event not found with id: " + id);
         }
     }
 
     public EventDto cancelEvent(Long id) {
-        Optional<Event> optionalEvent = EventRepo.findById(id);
+        Optional<Event> optionalEvent = eventRepo.findById(id);
         if (optionalEvent.isPresent()) {
-            Event event = optionalEvent.get();
-            event.getEventVenue().setVenueAvailability(AVAILABLE);
-            EventDto eventDto = new EventDto();
-            eventDto.setId(event.getId());
-            eventDto.setName(event.getName());
-            eventDto.setDate(event.getDate());
-            eventDto.setEventVenue(event.getEventVenue());
-            eventDto.setEventDescription(event.getEventDescription());
-
-            EventRepo.delete(event);
-
-            return eventDto;
+            Event eventToCancel = optionalEvent.get();
+            eventToCancel.getEventVenue().setVenueAvailability(AVAILABLE);
+            eventRepo.delete(eventToCancel);
+            return convertToDto(eventToCancel);
         } else {
-            throw new RuntimeException("Event not found with id: " + id);
+            throw new EventNotFoundException("Event not found with id: " + id +"could not perform delete operation");
         }
-
-//        Optional<Event> optionalEvent = EventRepo.findById(id);
-//        if (optionalEvent.isPresent()) {
-//            Event event = optionalEvent.get();
-//
-//            EventDto eventDto = new EventDto();
-//            eventDto.setId(event.getId());
-//            eventDto.setName(event.getName());
-//            eventDto.setDate(event.getDate());
-//            eventDto.setEventVenue(event.getEventVenue());
-//            eventDto.setEventDescription(event.getEventDescription());
-//
-//            EventRepo.delete(event);
-//
-//            return eventDto;
-//        } else {
-//            throw new RuntimeException("Event not found with id: " + id);
-//        }
-
-
     }
 
     public EventDto updateEventByOrganizer(Long id,EventDto eventDto){
-        Optional<Event> optionalEvent = EventRepo.findById(id);
-
+        Optional<Event> optionalEvent = eventRepo.findById(id);
         if (optionalEvent.isPresent()) {
-            Event updatedEvent = optionalEvent.get();
-
-            updatedEvent.setName(eventDto.getName());
-            updatedEvent.setDate(eventDto.getDate());
-            updatedEvent.setEventDescription(eventDto.getEventDescription());
-
-            Event updatedEvent = EventRepo.save(updatedEvent);
-
-            EventDto updatedEventDto = new EventDto();
-            updatedEventDto.setId(updatedEvent.getId());
-            updatedEventDto.setName(updatedEvent.getName());
-            updatedEventDto.setDate(updatedEvent.getDate());
-            updatedEventDto.setEventVenue(updatedEvent.getEventVenue());
-            updatedEventDto.setEventDescription(updatedEvent.getEventDescription());
-
-            return updatedEventDto;
+            Event eventUpdated = optionalEvent.get();
+            if(eventDto.getDate()!=null)eventUpdated.setDate(eventDto.getDate());
+            if(eventDto.getEventName()!=null)eventUpdated.setName(eventDto.getEventName());
+            if(eventDto.getEventDescription()!=null)eventUpdated.setEventDescription(eventDto.getEventDescription());
+            if(eventDto.getEventOrganizer()!=null)eventUpdated.setEventOrganizer(eventDto.getEventOrganizer());
+            return convertToDto(eventRepo.save(eventUpdated));
         } else {
             throw new EventNotFoundException("Event not found with id: " + id);
         }
-        return eventDto;
     }
 
     public List<Event> getAllEvents() {
-        return null;
+        return eventRepo.findAll();
     }
-
+    public EventDto convertToDto(Event event) {
+        EventDto eventDto = new EventDto();
+        eventDto.setEventName(event.getEventName());
+        eventDto.setDate(event.getDate());
+        eventDto.setEventVenue(event.getEventVenue());
+        eventDto.setEventDescription(event.getEventDescription());
+        eventDto.setEventOrganizer(event.getEventOrganizer());
+        return eventDto;
+    }
     public ERegistrationStatus addParticipant(Participant participant, Long id) {
-        return null;
+        Optional<Event> optionalEvent = eventRepo.findById(id);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            List<Participant> participants = event.getParticipants();
+            if (participants.contains(participant)) {
+                return ERegistrationStatus.ALREADY_REGISTERED;
+            } else {
+                participants.add(participant);
+                event.setParticipants(participants);
+                eventRepo.save(event);
+                return ERegistrationStatus.SUCCESS;
+            }
+        } else {
+            throw new EventNotFoundException("Event not found with id: " + id);
+        }
     }
 
     public ERegistrationStatus removeParticipant(Participant participant, Long id) {
-        return null;
+        Optional<Event> optionalEvent = eventRepo.findById(id);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            List<Participant> participants = event.getParticipants();
+            if (participants.contains(participant)) {
+                participants.remove(participant);
+                event.setParticipants(participants);
+                eventRepo.save(event);
+                return ERegistrationStatus.SUCCESS;
+            } else {
+                return ERegistrationStatus.NOT_REGISTERED;
+            }
+        } else {
+            throw new EventNotFoundException("Event not found with id: " + id);
+        }
     }
 }

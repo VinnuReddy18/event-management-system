@@ -9,11 +9,7 @@ import java.util.Optional;
 @Repository
 public interface EventRepo extends JpaRepository<Event,Long> {
 
-    static Optional<Event> findById(Long id) {
-        return null;
-    }
+     Optional<Event> findById(Long id);
 
-    static Event save(Event event) {
-        return null;
-    }
+     Event save(Event event);
 }

@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 public class OrganizerController {
     private final OrganizerService organizerService;
-
-    public OrganizerController(OrganizerService organizerService, EventService eventService) {
+    private final EventService eventService;
+    public OrganizerController(OrganizerService organizerService, EventService eventService, EventService eventService1) {
         this.organizerService = organizerService;
+        this.eventService = eventService1;
     }
 
     @GetMapping("/{id}")
@@ -33,10 +34,10 @@ public class OrganizerController {
     public OrganizerDto createOrganizer(@RequestBody OrganizerDto organizerDto ){
         return organizerService.createOrganizer(organizerDto);
     }
-//    @PatchMapping("/{id}")
-//    public EventDto updateEventById(@PathVariable("id") Long id){
-//        return eventService.updateEventByOrganizer(id);
-//    }
+    @PatchMapping
+    public EventDto updateEventById( Long id, EventDto eventDto){
+        return eventService.updateEventByOrganizer(id,eventDto);
+    }
 
 
 }
