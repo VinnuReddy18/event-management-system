@@ -7,37 +7,36 @@ import org.example.eventmanagementsystem.services.EventService;
 import org.example.eventmanagementsystem.services.OrganizerService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/organizer")
 
 public class OrganizerController {
     private final OrganizerService organizerService;
     private final EventService eventService;
-    public OrganizerController(OrganizerService organizerService, EventService eventService, EventService eventService1) {
-        this.organizerService = organizerService;
-        this.eventService = eventService1;
-    }
 
+    public OrganizerController(OrganizerService organizerService, EventService eventService) {
+        this.organizerService = organizerService;
+        this.eventService = eventService;
+    }
     @GetMapping("/{id}")
     public OrganizerDto getOrganizerById(@PathVariable("id") Long id){
         return organizerService.getOrganizerById(id);
     }
+    @PostMapping
+    public OrganizerDto createOrganizer(@RequestBody OrganizerDto organizerDto){
+        return organizerService.createOrganizer(organizerDto);
+    }
     @GetMapping
-    public OrganizerDto getAllOrganizers(){
+    public List<OrganizerDto> getAllOrganizers(){
         return organizerService.getAllOrganizers();
     }
     @PatchMapping("/{id}")
-    public OrganizerDto updateOrganizerById(@PathVariable("id") Long id){
-        return organizerService.updateOrganizerById(id);
+    public OrganizerDto updateOrganizerById(@PathVariable("id") Long id , @RequestBody OrganizerDto organizerDto){
+        return organizerService.updateOrganizerById(id,organizerDto);
     }
-    @PostMapping
-    public OrganizerDto createOrganizer(@RequestBody OrganizerDto organizerDto ){
-        return organizerService.createOrganizer(organizerDto);
-    }
-    @PatchMapping
-    public EventDto updateEventById( Long id, EventDto eventDto){
-        return eventService.updateEventByOrganizer(id,eventDto);
-    }
+    
 
 
 }
