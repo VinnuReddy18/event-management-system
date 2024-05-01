@@ -19,12 +19,12 @@ public class VenueController {
          return venueService.getVenueById(id);
     }
     @PatchMapping("/{id}")
-    public VenueDto updateVenue(@PathVariable("id") Long id){
-        return venueService.updateVenue(id);
+    public VenueDto updateVenue(@PathVariable("id") Long id, @RequestBody VenueDto venueDto){
+        return venueService.updateVenue(id,venueDto);
     }
     @PostMapping
-    public VenueDto createVenue(@PathVariable("id") Long id){
-         return venueService.createVenue(id);
+    public VenueDto createVenue(@RequestBody VenueDto venueDto){
+         return venueService.createVenue(venueDto);
     }
     @DeleteMapping("/{id}")
     public VenueDto removeVenue(@PathVariable("id") Long id){
