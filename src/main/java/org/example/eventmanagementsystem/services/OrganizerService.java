@@ -73,7 +73,7 @@ public class OrganizerService {
         return organizerDto;
     }
 
-    public OrganizerDto createOrganizer(OrganizerDto organizerDto) {
-        return null;
-    }
+//    public OrganizerDto createOrganizer(OrganizerDto organizerDto) {
+//        return organizerRepo.;
+//    }
 }
