@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ParticipantService {
+
     public ParticipantDto getParticipantById(Long id) {
         return null;
     }

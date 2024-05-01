@@ -35,10 +35,10 @@ public class OrganizerController {
     public OrganizerDto updateOrganizerById(@PathVariable("id") Long id , @RequestBody OrganizerDto organizerDto){
         return organizerService.updateOrganizerById(id,organizerDto);
     }
-//    @PatchMapping("/{id}")
-//    public EventDto updateEventById(@PathVariable("id") Long id){
-//        return eventService.updateEventByOrganizer(id);
-//    }
+    @PatchMapping
+    public EventDto updateEventById( Long id){
+        return eventService.updateEventByOrganizer(id);
+    }
 
 
 }
