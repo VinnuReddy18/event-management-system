@@ -20,8 +20,8 @@ public class EventController {
         return eventService.createEvent(event);
     }
     @PatchMapping("/{id}")
-    public EventDto updateEvent(@PathVariable("id") Long id) {
-        return eventService.updateEvent(id);
+    public EventDto updateEvent(@PathVariable("id") Long id,@RequestBody EventDto event){
+        return eventService.updateEvent(id,event);
     }
     @GetMapping("/{id}")
     public EventDto getEventById(@PathVariable("id") Long id){

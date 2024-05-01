@@ -14,11 +14,11 @@ public class ParticipantService {
         return null;
     }
 
-    public ParticipantDto createParticipant(Long id) {
+    public ParticipantDto createParticipant(ParticipantDto participantDto) {
         return null;
     }
 
-    public ParticipantDto removeParticipant(Long id) {
+    public ParticipantDto removeParticipant(ParticipantDto participantDto) {
         return null;
     }
 }

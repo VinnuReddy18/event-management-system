@@ -15,6 +15,7 @@ import java.util.List;
 public class OrganizerController {
     private final OrganizerService organizerService;
     private final EventService eventService;
+
     public OrganizerController(OrganizerService organizerService, EventService eventService) {
         this.organizerService = organizerService;
         this.eventService = eventService;
@@ -35,10 +36,7 @@ public class OrganizerController {
     public OrganizerDto updateOrganizerById(@PathVariable("id") Long id , @RequestBody OrganizerDto organizerDto){
         return organizerService.updateOrganizerById(id,organizerDto);
     }
-    @PatchMapping
-    public EventDto updateEventById( Long id){
-        return eventService.updateEventByOrganizer(id);
-    }
+    
 
 
 }
