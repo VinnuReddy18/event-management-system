@@ -72,4 +72,5 @@ public class OrganizerService {
         organizerRepo.save(organizer);
         return organizerDto;
     }
+
 }
