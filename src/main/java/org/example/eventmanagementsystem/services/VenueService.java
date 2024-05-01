@@ -3,6 +3,7 @@ package org.example.eventmanagementsystem.services;
 import org.example.eventmanagementsystem.dtos.VenueDto;
 import org.example.eventmanagementsystem.exceptions.VenueNotFoundException;
 import org.example.eventmanagementsystem.models.Venue;
+import org.example.eventmanagementsystem.models.enums.EVenueAvailability;
 import org.example.eventmanagementsystem.repositories.VenueRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,12 +70,15 @@ public class VenueService {
 
     public VenueDto createVenue(VenueDto venueDto) {
         Venue venue=new Venue();
-        venue.setVenueAvailability(venueDto.getVenueAvailability());
+        venue.setEvents(new ArrayList<>());
+        venueDto.setVenueAvailability(EVenueAvailability.AVAILABLE);
+        venue.setVenueAvailability(EVenueAvailability.AVAILABLE);
         venue.setVenueLocation(venueDto.getVenueLocation());
         venue.setVenueName(venueDto.getVenueName());
         venue.setCapacity(venueDto.getCapacity());
         venue.setVenueLocation(venueDto.getVenueLocation());
         venueRepo.save(venue);
+        venueDto.setId(venue.getId());
         return venueDto;
     }
 

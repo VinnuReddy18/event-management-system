@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/organizer")
+@RequestMapping("/organizers")
 
 public class OrganizerController {
     private final OrganizerService organizerService;

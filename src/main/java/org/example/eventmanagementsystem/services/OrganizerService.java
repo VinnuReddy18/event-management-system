@@ -36,6 +36,7 @@ public class OrganizerService {
         organizer.setEvents(organizerDto.getEvents());
         organizer.setName(organizerDto.getName());
         organizerRepo.save(organizer);
+        organizerDto.setId(organizer.getId());
         return organizerDto;
     }
     public List<OrganizerDto> getAllOrganizers() {
