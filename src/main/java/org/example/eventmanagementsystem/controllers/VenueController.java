@@ -5,6 +5,8 @@ import org.example.eventmanagementsystem.dtos.VenueDto;
 import org.example.eventmanagementsystem.services.VenueService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/venues")
 public class VenueController {
@@ -29,5 +31,9 @@ public class VenueController {
     @DeleteMapping("/{id}")
     public VenueDto removeVenue(@PathVariable("id") Long id){
         return venueService.removeVenue(id);
+    }
+    @GetMapping
+    public List<VenueDto> getAllVenues(){
+        return venueService.getAllVenues();
     }
 }
