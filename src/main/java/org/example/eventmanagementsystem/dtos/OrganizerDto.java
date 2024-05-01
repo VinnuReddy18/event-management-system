@@ -1,4 +1,4 @@
-package org.example.eventmanagementsystem.dtos;
+package org.example.eventmanagementsystem.dtos; 
 
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
