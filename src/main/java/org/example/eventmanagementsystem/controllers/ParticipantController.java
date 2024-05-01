@@ -8,7 +8,7 @@ import org.example.eventmanagementsystem.services.EventService;
 import org.example.eventmanagementsystem.services.ParticipantService;
 
 @RestController
-@RequestMapping("/participant")
+@RequestMapping("/participants")
 public class ParticipantController {
     private final ParticipantService participantService;
     private final EventService eventService;
