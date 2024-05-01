@@ -27,6 +27,20 @@ public class VenueService {
         Venue venue=optionalVenue.get();
         return convertToVenueDto(venue);
     }
+    public List<VenueDto> getAllVenues() {
+        List<Venue> venues= venueRepo.findAll();
+        List<VenueDto> venueDtos=new ArrayList<>();
+        for(Venue venue:venues) {
+            VenueDto venueDto = new VenueDto();
+            venueDto.setVenueAvailability(venue.getVenueAvailability());
+            venueDto.setVenueLocation(venue.getVenueLocation());
+            venueDto.setVenueName(venue.getVenueName());
+            venueDto.setCapacity(venueDto.getCapacity());
+            venueDto.setVenueLocation(venue.getVenueLocation());
+            venueDtos.add(venueDto);
+        }
+        return venueDtos;
+    }
 
     public VenueDto updateVenue(long id, VenueDto venueDto) {
         Optional<Venue> optionalVenue=venueRepo.findById(id);
