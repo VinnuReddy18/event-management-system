@@ -10,10 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface ParticipantRepo extends JpaRepository<Participant,Long> {
-    @Override
+
     Optional<Participant> findById(Long id);
-    @Override
-     Optional<Participant> save(Participant participant);
+
+     Participant save(Participant participant);
 
 
 }
