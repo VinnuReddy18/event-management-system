@@ -18,4 +18,8 @@ public class OrganizerService {
         return null;
 
     }
+
+    public OrganizerDto createOrganizer(OrganizerDto organizerDto) {
+        return null;
+    }
 }

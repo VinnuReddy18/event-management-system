@@ -34,7 +34,7 @@ public class ParticipantController {
     public ParticipantDto removeParticipant(@PathVariable("id") Long id){
         return participantService.removeParticipant(id);
     }
-    @GetMapping
+    @GetMapping()
     public List<Event> getAllEvents(){
         return eventService.getAllEvents();
     }
