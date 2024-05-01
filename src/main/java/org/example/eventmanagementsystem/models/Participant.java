@@ -20,6 +20,8 @@ public class Participant extends BaseModel{
     private Long id;
     private String name;
     private String email;
+    @OneToOne
+    private Event event;
 //    @OneToMany
 //    private HashMap<Event, ERegistrationStatus> events;
 }
