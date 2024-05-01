@@ -31,7 +31,7 @@ public class OrganizerService {
         return organizerDto;
     }
     public OrganizerDto createOrganizer(OrganizerDto organizerDto){
-        Organizer organizer=new Organizer();
+        Organizer organizer = new Organizer();
         organizer.setContactNumber(organizerDto.getContactNumber());
         organizer.setEvents(organizerDto.getEvents());
         organizer.setName(organizerDto.getName());
@@ -43,15 +43,15 @@ public class OrganizerService {
         if (optionalOrganizerList.isEmpty()) {
             throw new OrganizerNotFoundException("Organizers List is Empty");
         }
-        List<OrganizerDto> organizerDtos=new ArrayList<>();
+        List<OrganizerDto> dtos = new ArrayList<>();
         for(Organizer organizer:optionalOrganizerList){
             OrganizerDto organizerDto=new OrganizerDto();
             organizerDto.setName(organizer.getName());
             organizerDto.setEvents(organizer.getEvents());
             organizerDto.setContactNumber(organizer.getContactNumber());
-            organizerDtos.add(organizerDto);
+            dtos.add(organizerDto);
         }
-        return organizerDtos;
+        return dtos;
     }
 
     public OrganizerDto updateOrganizerById(Long id, OrganizerDto organizerDto) {
@@ -73,7 +73,4 @@ public class OrganizerService {
         return organizerDto;
     }
 
-//    public OrganizerDto createOrganizer(OrganizerDto organizerDto) {
-//        return organizerRepo.;
-//    }
 }
