@@ -26,8 +26,8 @@ public class ParticipantController {
     public ParticipantDto updateParticipant(@PathVariable("id") Long id){
         return participantService.updateParticipant(id);
     }
-    @PostMapping
-    public ParticipantDto createParticipant(@PathVariable("id") Long id){
+    @PostMapping("/{id}")
+    public ParticipantDto createParticipant(@PathVariable Long id){
         return participantService.createParticipant(id);
     }
     @DeleteMapping("/{id}")
