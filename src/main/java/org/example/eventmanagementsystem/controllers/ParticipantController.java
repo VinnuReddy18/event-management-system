@@ -9,7 +9,6 @@ import org.example.eventmanagementsystem.services.EventService;
 import org.example.eventmanagementsystem.services.ParticipantService;
 import org.example.eventmanagementsystem.models.enums.ERegistrationStatus;
 
-
 @RestController
 @RequestMapping("/participant")
 public class ParticipantController {
