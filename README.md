@@ -41,7 +41,9 @@ This project is an event management system designed to streamline the planning a
 - **Database Integration**: Integrated with MySQL Database.
 - **Hibernate ORM**: Used for database interaction to facilitate CRUD operations and ensure data integrity.
 - **Cardinality Rules**: Ensured the right cardinality rules are maintained between the models.
-- **Logging**: Considered adding logging for each CRUD operation to aid in debugging and tracking system usage.
+<!-- ```
+# Logging: Considered adding logging for each CRUD operation to aid in debugging and tracking system usage.
+``` -->
 
 ## Setup Instructions 🚀
 
