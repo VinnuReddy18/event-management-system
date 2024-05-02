@@ -11,7 +11,5 @@ public class ParticipantDto {
     private Long id;
     private String name;
     private String email;
-    private List<Event> events;
-
-
+    private Long eventId;
 }

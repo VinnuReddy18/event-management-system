@@ -47,6 +47,7 @@ public class OrganizerService {
         List<OrganizerDto> dtos = new ArrayList<>();
         for(Organizer organizer:optionalOrganizerList){
             OrganizerDto organizerDto=new OrganizerDto();
+            organizerDto.setId(organizer.getId());
             organizerDto.setName(organizer.getName());
             organizerDto.setEvents(organizer.getEvents());
             organizerDto.setContactNumber(organizer.getContactNumber());
@@ -69,6 +70,9 @@ public class OrganizerService {
         }
         if(organizerDto.getName()!=null) {
             organizer.setName(organizerDto.getName());
+        }
+        if(organizerDto.getId()!=null) {
+            organizer.setId(organizerDto.getId());
         }
         organizerRepo.save(organizer);
         return organizerDto;
