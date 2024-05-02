@@ -8,9 +8,9 @@ import java.util.List;
 @Getter
 @Setter
 public class ParticipantDto {
+    private Long id;
     private String name;
     private String email;
-
     private List<Event> events;
 
 

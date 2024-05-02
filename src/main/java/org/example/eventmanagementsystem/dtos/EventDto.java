@@ -11,12 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 public class EventDto {
+    private Long id;
     private Date date;
     private String eventName;
-    private Venue eventVenue;
+    private Long venueId;
     private String eventDescription;
-    private Organizer eventOrganizer;
-    private List<Participant> participants;
-
-
+    private Long organizerId;
 }

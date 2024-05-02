@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class VenueDto {
+    private Long id;
     private Long capacity;
     private String venueName;
     private List<Event> events;

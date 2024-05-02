@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class OrganizerDto {
+    private Long id;
     private String name;
     @OneToMany
     private List<Event> events;
