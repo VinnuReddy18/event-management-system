@@ -23,8 +23,8 @@ public class ParticipantController {
         return participantService.getParticipantById(id);
     }
     @PatchMapping("/{id}")
-    public ParticipantDto updateParticipant(@PathVariable("id") Long id){
-        return participantService.updateParticipant(id);
+    public ParticipantDto updateParticipant(@PathVariable("id") Long id , @RequestBody ParticipantDto participantDto){
+        return participantService.updateParticipant(id,participantDto);
     }
     @PostMapping("/{id}")
     public ParticipantDto createParticipant(@RequestBody ParticipantDto participantDto){

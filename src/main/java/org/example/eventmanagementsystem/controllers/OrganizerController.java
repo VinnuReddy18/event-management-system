@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class OrganizerController {
     private final OrganizerService organizerService;
     private final EventService eventService;
-    public OrganizerController(OrganizerService organizerService, EventService eventService) {
+    public OrganizerController(OrganizerService organizerService, EventService eventService, EventService eventService1) {
         this.organizerService = organizerService;
-        this.eventService = eventService;
+        this.eventService = eventService1;
     }
 
     @GetMapping("/{id}")
