@@ -1,21 +1,27 @@
 package org.example.eventmanagementsystem.services;
 
 import org.example.eventmanagementsystem.dtos.ParticipantDto;
+import org.example.eventmanagementsystem.exceptions.EventNotFoundException;
 import org.example.eventmanagementsystem.exceptions.ParticipantNotFoundException;
+import org.example.eventmanagementsystem.models.Event;
 import org.example.eventmanagementsystem.models.Participant;
+import org.example.eventmanagementsystem.repositories.EventRepo;
 import org.example.eventmanagementsystem.repositories.ParticipantRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ParticipantService {
     private final ParticipantRepo participantRepo;
+    private final EventRepo eventRepo;
     @Autowired
-    public ParticipantService(ParticipantRepo participantRepo) {
+    public ParticipantService(ParticipantRepo participantRepo, EventRepo eventRepo) {
         this.participantRepo = participantRepo;
+        this.eventRepo = eventRepo;
     }
 
     public ParticipantDto getParticipantById(Long id) {
@@ -27,9 +33,9 @@ public class ParticipantService {
 
     private ParticipantDto convertToDto(Participant participant) {
         ParticipantDto participantDto = new ParticipantDto();
+        participantDto.setId(participant.getId());
         participantDto.setName(participant.getName());
         participantDto.setEmail(participant.getEmail());
-        participantDto.setEvents(participant.getEvent());
         return participantDto;
     }
 
@@ -39,24 +45,27 @@ public class ParticipantService {
         Participant updatedParticipant = previousParticipant.get();
         if(updatedParticipantDto.getName()!=null) updatedParticipant.setName(updatedParticipantDto.getName());
         if(updatedParticipantDto.getEmail()!=null) updatedParticipant.setEmail(updatedParticipantDto.getEmail());
-        if(updatedParticipantDto.getEvents() != null) {
-            updatedParticipant.setEvent(updatedParticipantDto.getEvents());
-        }
-
-        if(previousParticipant.get().getEvent() == null) {
-            updatedParticipant.setEvent(updatedParticipantDto.getEvents());
-        }
+        Optional<Event> optionalEvent = eventRepo.findById(updatedParticipantDto.getEventId());
+        optionalEvent.ifPresent(event -> updatedParticipant.getEvent().add(event));
         participantRepo.save(updatedParticipant);
-        return updatedParticipantDto;
+
+        ParticipantDto participantDto = convertToDto(updatedParticipant);
+        participantDto.setEventId(updatedParticipantDto.getEventId());
+        return participantDto;
     }
 
-    public ParticipantDto createParticipant(Long id , ParticipantDto ParticipantDto) {
+    public ParticipantDto createParticipant(ParticipantDto ParticipantDto) {
         Participant newParticipant = new Participant();
         newParticipant.setName(ParticipantDto.getName());
         newParticipant.setEmail(ParticipantDto.getEmail());
-        newParticipant.setEvent(ParticipantDto.getEvents());
+        newParticipant.setEvent(new ArrayList<>());
+        Optional<Event> optionalEvent = eventRepo.findById(ParticipantDto.getEventId());
+        optionalEvent.ifPresent(event -> newParticipant.getEvent().add(event));
+        if(optionalEvent.isEmpty())throw  new EventNotFoundException("Event with event id "+ParticipantDto.getEventId()+" not found");
         participantRepo.save(newParticipant);
-        return convertToDto(newParticipant);
+        ParticipantDto participantDto = convertToDto(newParticipant);
+        participantDto.setEventId(ParticipantDto.getEventId());
+        return participantDto;
     }
 
     public ParticipantDto removeParticipant(Long id) {
@@ -70,5 +79,10 @@ public class ParticipantService {
         return convertToDto(participant);
     }
 
+    public List<Event> getAllEvents(Long id) {
+        Optional<Participant> optionalParticipant = participantRepo.findById(id);
+        if(optionalParticipant.isPresent())return optionalParticipant.get().getEvent();
+        else throw new ParticipantNotFoundException(" Participant not found with id: " + id );
+    }
 }
 

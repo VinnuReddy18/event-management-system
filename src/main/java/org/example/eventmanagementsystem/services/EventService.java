@@ -52,10 +52,11 @@ public class EventService {
 
     public EventDto updateEvent(Long id, EventDto event) {
         Optional<Event> optionalEvent = eventRepo.findById(id);
+
         if (optionalEvent.isPresent()) {
             Event eventUpdated = optionalEvent.get();
             if(event.getDate()!=null)eventUpdated.setDate(event.getDate());
-            if(event.getEventName()!=null)eventUpdated.setName(event.getEventName());
+            if(event.getEventName()!=null)eventUpdated.setEventName(event.getEventName());
 
             if(event.getVenueId()!=null) {
                 Optional<Venue> optionalVenue = venueRepo.findById(event.getVenueId());
@@ -70,12 +71,11 @@ public class EventService {
             if(event.getOrganizerId()!=null) {
                 Optional<Organizer> optionalOrganizer = organizerRepo.findById(event.getOrganizerId());
 
-                if(optionalOrganizer.isEmpty())throw new OrganizerNotFoundException("venue not Found");
+                if(optionalOrganizer.isEmpty())throw new OrganizerNotFoundException("organiser not Found");
 
                 optionalOrganizer.get().getEvents().add(eventUpdated);
                 eventUpdated.setEventOrganizer(optionalOrganizer.get());
             }
-
             return convertToDto(eventRepo.save(eventUpdated));
         } else {
             throw new RuntimeException("Event not found with id: " + id);
@@ -108,7 +108,7 @@ public class EventService {
         if (optionalEvent.isPresent()) {
             Event eventUpdated = optionalEvent.get();
             if(eventDto.getDate()!=null)eventUpdated.setDate(eventDto.getDate());
-            if(eventDto.getEventName()!=null)eventUpdated.setName(eventDto.getEventName());
+            if(eventDto.getEventName()!=null)eventUpdated.setEventName(eventDto.getEventName());
             if(eventDto.getEventDescription()!=null)eventUpdated.setEventDescription(eventDto.getEventDescription());
             if(eventDto.getOrganizerId()!=null) {
 

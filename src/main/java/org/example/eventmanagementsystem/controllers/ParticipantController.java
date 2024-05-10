@@ -24,16 +24,16 @@ public class ParticipantController {
     public ParticipantDto updateParticipant(@PathVariable("id") Long id , @RequestBody ParticipantDto participantDto){
         return participantService.updateParticipant(id,participantDto);
     }
-    @PostMapping("/{id}")
-    public ParticipantDto createParticipant(@PathVariable Long id , @RequestBody ParticipantDto participantDto){
-        return participantService.createParticipant(id , participantDto);
+    @PostMapping
+    public ParticipantDto createParticipant( @RequestBody ParticipantDto participantDto){
+        return participantService.createParticipant(participantDto);
     }
     @DeleteMapping("/{id}")
     public ParticipantDto removeParticipant(@PathVariable("id") Long id){
         return participantService.removeParticipant(id);
     }
-    @GetMapping()
-    public List<Event> getAllEvents(){
-        return eventService.getAllEvents();
+    @GetMapping("/events/{id}")
+    public List<Event> getAllEvents(@PathVariable("id") Long id){
+        return participantService.getAllEvents(id);
     }
 }
